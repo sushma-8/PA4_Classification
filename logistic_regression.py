@@ -1,3 +1,18 @@
+"""
+Logistic Regression
+
+Contributors:
+
+Niroop Ramdas Sagar
+USC ID: 4897621292
+ramdassa@usc.edu
+
+Sushma Mahadevaswamy
+USC ID: 3939734806
+mahadeva@usc.edu
+
+"""
+
 import numpy as np
 import math
 import matplotlib.pyplot as plt
@@ -43,13 +58,12 @@ class Logistic_Regression:
         for _ in range(MAX_ITERATIONS):
 
             count += 1
-            print(f"Iteration : {count}")
-            s = self.activation_function(np.dot(self.weights, self.input_data.T))#, self.weights.T))
+            s = self.activation_function(np.dot(self.weights, self.input_data.T))
 
             dw = (1/self.input_data.shape[0])*(np.dot(self.input_data.T, (s-self.Y.T).T))
             self.weights = self.weights - (learning_rate * (dw.T))
 
-        print(f'Weights:{self.weights}\nBias:{self.bias}')
+        print(f'Weights:{self.weights}')
 
     def test_model(self):
         correct_predictions = 0
@@ -57,7 +71,7 @@ class Logistic_Regression:
             value = np.dot(row, self.weights.T)
             if (value > 0.5 and row[-1] == 1) or (value < 0.5 and row[-1] == -1):
                 correct_predictions += 1
-        print(f'Correct Predictions:{correct_predictions/self.input_data.shape[0]}')
+        print(f'Accuracy :{(correct_predictions/self.input_data.shape[0]) * 100} %')
 
         return correct_predictions
 
@@ -75,4 +89,3 @@ if __name__ == "__main__":
     model.parse_input()
     model.learn_weights()
     model.test_model()
-    #model.plot()

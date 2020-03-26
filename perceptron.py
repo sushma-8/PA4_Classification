@@ -1,3 +1,17 @@
+"""
+Perceptron
+
+Contributors:
+
+Niroop Ramdas Sagar
+USC ID: 4897621292
+ramdassa@usc.edu
+
+Sushma Mahadevaswamy
+USC ID: 3939734806
+mahadeva@usc.edu
+
+"""
 import numpy as np
 
 MAX_ITERATIONS = 7000
@@ -10,6 +24,7 @@ class Perceptron:
         self.bias = 0
         self.count = 0
         self.input_data = None
+        self.rand_scratch_card = []
 
     def parse_input(self):
         data_points = np.loadtxt(open('classification.txt', 'r'), delimiter='\t', dtype='str')
@@ -21,15 +36,19 @@ class Perceptron:
         self.input_data = self.input_data[index_shuffle]
 
     def get_random_vector(self):
+        idx = np.random.randint(self.count)
+        while idx in self.rand_scratch_card:
+            idx = np.random.randint(self.count)
+        self.rand_scratch_card.append(idx)
 
-        return self.input_data[np.random.randint(self.count),:].reshape((4,))
+        return self.input_data[idx,:].reshape((4,))
 
     def learn_weights(self):
         self.weights = np.zeros(3, )
 
         is_converged = False
         for _ in range(MAX_ITERATIONS):
-            self.shuffle_vectors()
+            self.rand_scratch_card = []
             constraint_violated = False
 
             while (constraint_violated != True):
@@ -67,4 +86,4 @@ if __name__ == "__main__":
     model.parse_input()
     model.learn_weights()
     print(f'Weights:{model.weights}\nBias:{model.bias}')
-    print(f'Correct predictions : {model.test_model()}')
+    print(f'Accuracy : {(model.test_model()/model.count) * 100} %')

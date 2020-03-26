@@ -1,3 +1,18 @@
+"""
+Pocket Algorithm
+
+Contributors:
+
+Niroop Ramdas Sagar
+USC ID: 4897621292
+ramdassa@usc.edu
+
+Sushma Mahadevaswamy
+USC ID: 3939734806
+mahadeva@usc.edu
+
+"""
+
 import numpy as np
 import math
 import matplotlib.pyplot as plt
@@ -38,7 +53,6 @@ class Pocket:
 
         count = 0
         for _ in range(MAX_ITERATIONS):
-            #self.shuffle_vectors()
             constraint_violated = False
             while (constraint_violated != True):
                 row = self.get_random_vector()
@@ -65,7 +79,8 @@ class Pocket:
                 return
                 
         print(f'Weights:{self.weights}\nBias:{self.bias}')
-        print(f'Max predictions : {max_predictions}')
+        print(f'No of misclassifications : {self.count - max_predictions}')
+        print(f'Accuracy : {(max_predictions/self.count) * 100} %')
 
     def test_model(self):
         correct_predictions = 0
@@ -74,7 +89,6 @@ class Pocket:
             value += self.bias
             if (value > 0 and row[-1] == 1) or (value < 0 and row[-1] == -1):
                 correct_predictions += 1
-        print(f'Correct Predictions:{correct_predictions}')
 
         return correct_predictions
 

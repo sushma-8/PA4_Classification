@@ -1,3 +1,18 @@
+"""
+Linear Regression
+
+Contributors:
+
+Niroop Ramdas Sagar
+USC ID: 4897621292
+ramdassa@usc.edu
+
+Sushma Mahadevaswamy
+USC ID: 3939734806
+mahadeva@usc.edu
+
+"""
+
 import numpy as np
 import math
 import matplotlib.pyplot as plt
@@ -24,7 +39,7 @@ class Linear_regression:
         self.weights = np.zeros(3, )
         xt_x = self.XY.T * self.XY
         if (np.linalg.det(xt_x) == 0):
-            print("Singular Matrix. Cannot find Inverse")
+            print("Singular Matrix. Can't be Inversed")
         self.weights = xt_x.I * (self.XY.T * self.Z)
         self.weights  = self.weights.T
 
